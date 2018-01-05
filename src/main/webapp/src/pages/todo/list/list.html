@@ -1,0 +1,16 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Todo List</h3>
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <td>Name</td>
+                <td>Operation</td>
+            </tr>
+            <tr ng-repeat="todo in todos">
+                <td><a href="#/todoDetail/{{todo.id}}">{{todo.name}}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -12,13 +12,14 @@
     <display-name>CRUD Servlet</display-name>
 
     <servlet>
-        <servlet-name>TodoResurce</servlet-name>
-        <servlet-class>ro.mindit.todo.resource.TodoResource</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+    <servlet-name>TodoResource</servlet-name>
+    <servlet-class>ro.mindit.todo.resource.TodoResource</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
     <servlet-mapping>
-        <servlet-name>TodoResurce</servlet-name>
+        <servlet-name>TodoResource</servlet-name>
         <url-pattern>/todos/*</url-pattern>
     </servlet-mapping>
+
 
 </web-app>

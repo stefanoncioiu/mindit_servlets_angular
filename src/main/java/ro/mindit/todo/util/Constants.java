@@ -8,7 +8,7 @@ package ro.mindit.todo.util;
  */
 public class Constants {
     public static final String jdbcDriver = "org.postgresql.Driver";
-    public static final String jdbcURL = "jdbc:postgresql://localhost:5432/forum";
-    public static final String jdbcUsername = "forum";
-    public static final String jdbcPassword = "forum";
+    public static final String jdbcURL = "jdbc:postgresql://localhost:5432/BazaD";
+    public static final String jdbcUsername = "postgres";
+    public static final String jdbcPassword = "admin";
 }

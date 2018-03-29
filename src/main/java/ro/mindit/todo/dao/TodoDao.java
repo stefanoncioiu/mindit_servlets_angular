@@ -12,7 +12,7 @@ public class TodoDao {
     private int idSeq = 1;
     private List<Todo> todos;
 
-    private Connection jdbcConnection;
+    private static Connection jdbcConnection;
 
     public TodoDao() {
         final Todo todo = new Todo() {{
@@ -42,7 +42,7 @@ public class TodoDao {
     }
 
 
-    public void connect() throws SQLException {
+    public static void connect() throws SQLException {
         if (jdbcConnection == null || jdbcConnection.isClosed()) {
             try {
                 Class.forName(jdbcDriver);
@@ -53,7 +53,7 @@ public class TodoDao {
         }
     }
 
-    public void disconnect() throws SQLException {
+    public static void disconnect() throws SQLException {
         if (jdbcConnection != null && !jdbcConnection.isClosed()) {
             jdbcConnection.close();
         }
@@ -61,7 +61,7 @@ public class TodoDao {
 
     public Todo findOne(int id) throws SQLException {
         Todo todo = null;
-        String sql = "SELECT * FROM todo WHERE id = ?";
+        String sql = "SELECT * FROM forum WHERE id = ?";
 
         connect();
 
@@ -71,11 +71,11 @@ public class TodoDao {
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            String title = resultSet.getString("name");
-            String author = resultSet.getString("owner");
-            String price = resultSet.getString("priority");
+            String name = resultSet.getString("name");
+            String owner = resultSet.getString("owner");
+            String priority = resultSet.getString("priority");
 
-            todo = new Todo(id, title, author, price);
+            todo = new Todo(id, name, owner, priority);
         }
 
         resultSet.close();
@@ -84,10 +84,10 @@ public class TodoDao {
         return todo;
     }
 
-    public List<Todo> findAll() throws SQLException {
+    public static List<Todo> findAll() throws SQLException {
         List<Todo> todoList = new ArrayList<Todo>();
 
-        String sql = "SELECT * FROM todo";
+        String sql = "SELECT * FROM forum";
 
         connect();
 
@@ -96,11 +96,12 @@ public class TodoDao {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            String title = resultSet.getString("name");
-            String author = resultSet.getString("owner");
-            String price = resultSet.getString("priority");
-            Todo todo = new Todo(id, title, author, price);
+            String nume = resultSet.getString("name");
+            String owner = resultSet.getString("owner");
+            String priority = resultSet.getString("priority");
+            Todo todo = new Todo(id, nume, owner, priority);
             todoList.add(todo);
+
         }
 
         resultSet.close();
@@ -111,4 +112,69 @@ public class TodoDao {
         return todoList;
     }
 
+    public void addTodo(String name, String owner, String priority) throws SQLException {
+
+        String sql = "INSERT INTO forum (name, owner, priority) VALUES (?,?,?)";
+
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setString(1, name);
+        statement.setString(2, owner);
+        statement.setString(3, priority);
+
+        statement.executeUpdate();
+
+        statement.close();
+        disconnect();
+
+
+    }
+
+    public void updateTodo(int id, String name, String owner, String priority) throws SQLException {
+
+
+        String sql = "UPDATE forum set name=?, owner=?, priority=? where id = ?";
+
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setString(1, name);
+        statement.setString(2, owner);
+        statement.setString(3, priority);
+        statement.setInt(4,id);
+
+        statement.executeUpdate();
+
+        statement.close();
+        disconnect();
+
+
+    }
+
+    public void deleteTodo(int id) throws SQLException {
+
+        String sql = "DELETE from forum where id = ?";
+
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.executeUpdate();
+
+        statement.close();
+        disconnect();
+    }
+
+    public static void main(String args[]) throws SQLException {
+
+
+        TodoDao q = new TodoDao();
+        //System.out.println(q.findAll());
+        //q.addTodo("nume_test1","owner_test1","high1");
+        //q.updateTable(2,"num_updt","own_updt","prio_updt");
+        //q.deleteFromTable(1);
+
+
+    }
 }

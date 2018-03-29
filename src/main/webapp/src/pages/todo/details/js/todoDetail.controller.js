@@ -12,8 +12,10 @@
             .then(function (res) {
                 $scope.todo = res.data;
             }, function () {
-                $scope.todo = {};
+                $scope.todo = [];
             });
     }
+
+
 
 })();

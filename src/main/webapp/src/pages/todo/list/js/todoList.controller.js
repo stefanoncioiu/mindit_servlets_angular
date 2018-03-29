@@ -15,6 +15,18 @@
             }, function () {
                 $scope.todos = [];
             });
+
+
+
+        $scope.myClickOnButton = function() {
+            alert("You clicked a button");
+        }
+
+
+
+
     }
+
+
 
 })();

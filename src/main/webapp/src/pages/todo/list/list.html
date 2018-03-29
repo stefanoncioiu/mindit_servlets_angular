@@ -10,7 +10,22 @@
             </tr>
             <tr ng-repeat="todo in todos">
                 <td><a href="#/todoDetail/{{todo.id}}">{{todo.name}}</a></td>
+                <td><a href="#/todoDelete/{{todo.id}}">delete</a>
+                    <a href="#/todoUpdate/{{todo.id}}">update</a>
+                </td>
             </tr>
+
+
         </table>
+
+
     </div>
+
+
+
+
+</div>
+
+<div >
+    <a href="#/todoPut/">Insert</a>
 </div>
